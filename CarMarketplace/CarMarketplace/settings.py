@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'login.apps.LoginConfig',
+    'login',
     'anunciarVeiculos',
+    'solicitarAnuncio'
 ]
 
 MIDDLEWARE = [

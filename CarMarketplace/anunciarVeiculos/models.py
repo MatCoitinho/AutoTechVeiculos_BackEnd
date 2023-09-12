@@ -12,8 +12,8 @@ class Modelo(models.Model):
     tipoCombustivel = models.CharField(
         max_length=20,
         choices=TipoCombustivel.choices,
-        default="undefined", 
-        verbose_name="Tipo Combustivel"
+        default="Undefined", 
+        verbose_name="Tipo Combustível"
     )
 
     modelo = models.CharField(max_length=50, verbose_name="Modelo")
@@ -30,7 +30,6 @@ class Modelo(models.Model):
 class Veiculo(models.Model):
     placa = models.CharField(max_length=7, unique = True, verbose_name = "Placa")
     quilometragem = models.CharField(max_length=7, verbose_name="Quilometragem")
-    ultimaRevisao = models.DateField(verbose_name="Ultima Revisao")
     status = models.BooleanField(verbose_name="Status Do Veiculo", default=False)
     preco = models.IntegerField(verbose_name = "Preco Do Veiculo")
     veiculo = models.ForeignKey(Modelo, on_delete=models.CASCADE)
