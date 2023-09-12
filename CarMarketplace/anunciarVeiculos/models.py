@@ -1,4 +1,5 @@
 from django.db import models
+from login.models import Usuario
 
 
 class Modelo(models.Model):
@@ -33,6 +34,8 @@ class Veiculo(models.Model):
     status = models.BooleanField(verbose_name="Status Do Veiculo", default=False)
     preco = models.IntegerField(verbose_name = "Preco Do Veiculo")
     veiculo = models.ForeignKey(Modelo, on_delete=models.CASCADE)
+    servico = models.BooleanField(verbose_name="Serviço", default=False)
+    dono = models.ForeignKey(Usuario, verbose_name="Dono", on_delete=models.CASCADE, null=True)
 
 
 
