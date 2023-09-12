@@ -1,30 +1,7 @@
 from django.db import models
 
 
-class Veiculo(models.Model):
-    class MarcaVeiculos(models.TextChoices):
-        Ford = "Ford", ("Ford")
-        Toyota= "Toyota", ("Toyota")
-        Honda= "Honda", ("Honda")
-        Volkswagen= "VW", ("Volkswagen")
-        BMW = "BMW", ("BMW")
-        MercedesBenz = "MB", ("Mercedes-Benz")
-        Chevrolet= "Chevy", ("Chevrolet")
-        Nissan= "Nissan", ("Nissan")
-        Audi= "Audi", ("Audi")
-        Hyundai= "Hyundai", ("Hyundai")
-        Subaru= "Subaru", ("Subaru")
-        Kia= "Kia", ("Kia")
-        Volvo= "Volvo", ("Volvo")
-        Jaguar= "Jaguar", ("Jaguar")
-        Tesla= "Tesla", ("Tesla")
-
-    marca = models.CharField(
-        max_length=13,
-        choices=MarcaVeiculos.choices,
-        default="undefined",
-        verbose_name="Marca"
-    )
+class Modelo(models.Model):
 
     class TipoCombustivel(models.TextChoices):
         gasolina = "Gasol", ("Gasolina")
@@ -39,18 +16,20 @@ class Veiculo(models.Model):
     )
 
     modelo = models.CharField(max_length=50, verbose_name="modelo")
+    marca = models.CharField(max_length=20,verbose_name="marca")
     ano = models.DateField(verbose_name="Ano Do Modelo",)
     cambio = models.BooleanField(verbose_name="Tipo De Cambio", default=True)
     categoria = models.CharField(max_length=10, verbose_name="Categoria Carro")
+    qtdPortas = models.IntegerField(verbose_name="quantidade de portas")
 
     def __str__(self):
         return self.marca
 
 
-class carro(models.Model):
+class Veiculo(models.Model):
     placa = models.CharField(max_length=7, unique = True, verbose_name = "Placa")
     quilometragem = models.CharField(max_length=7, verbose_name="Quilometragem")
     ultimaRevisao = models.DateField(verbose_name="Ultima Revisao")
     status = models.BooleanField(verbose_name="Status Do Veiculo", default=False)
     preco = models.IntegerField(verbose_name = "Preco Do Veiculo")
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
+    veiculo = models.ForeignKey(Modelo, on_delete=models.CASCADE)
