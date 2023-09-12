@@ -3,7 +3,7 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.core.validators import RegexValidator
 
 
-class Cliente(models.Model):
+class Usuario(models.Model):
     nome =  models.CharField(max_length=100, verbose_name="Nome")
     email = models.EmailField(max_length=100, verbose_name="Email")
     cpf = models.CharField(max_length=14, unique=True, verbose_name= "CPF")
@@ -14,6 +14,7 @@ class Cliente(models.Model):
     )
     telefone = models.CharField(validators=[telefone_regex], max_length=10, verbose_name="Telefone")
     endereco = models.CharField(max_length=300)
+    admin = models.BooleanField(verbose_name="Permissao Admin")
 
     def __str__(self):
         return self.nome
