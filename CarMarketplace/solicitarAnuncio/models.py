@@ -1,5 +1,5 @@
 from django.db import models
-from login.models import Usuario
+from login.models import Cliente
 
 
 class Solicitacao(models.Model):
@@ -10,7 +10,7 @@ class Solicitacao(models.Model):
     cambio = models.BooleanField(verbose_name="Automático",default=False)
     data = models.DateField(verbose_name="Data", auto_now_add=True)
     servico = models.BooleanField(verbose_name="Alugar?",default=False)
-    solicitante = models.ForeignKey(Usuario, verbose_name="Solicitante", null= True, on_delete=models.CASCADE)
+    solicitante = models.ForeignKey(Cliente, verbose_name="Solicitante", null= True, on_delete=models.CASCADE)
 
     class Combustivel(models.TextChoices):
         gasolina = "Gasol", ("Gasolina")

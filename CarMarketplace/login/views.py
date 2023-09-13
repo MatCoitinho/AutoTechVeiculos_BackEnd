@@ -1,8 +1,8 @@
 from rest_framework import viewsets
-from .models import Usuario
-from .serializers import UsuarioSerializer
+from .models import Cliente
+from .serializers import ClienteSerializer
 
 
-class UsuarioViewSet(viewsets.ModelViewSet):
-    serializer_class = UsuarioSerializer
-    queryset = Usuario.objects.all()
+class ClienteViewSet(viewsets.ModelViewSet):
+    serializer_class = ClienteSerializer
+    queryset = Cliente.objects.all()
