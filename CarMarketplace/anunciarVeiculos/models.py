@@ -1,5 +1,5 @@
 from django.db import models
-from login.models import Cliente
+from django.contrib.auth.models import User
 
 
 class Modelo(models.Model):
@@ -33,7 +33,7 @@ class Veiculo(models.Model):
     preco = models.IntegerField(verbose_name = "Preco Do Veiculo")
     veiculo = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Modelo/Marca")
     servico = models.BooleanField(verbose_name="Serviço", default=False)
-    dono = models.ForeignKey(Cliente, verbose_name="Dono", on_delete=models.CASCADE, null=True)
+    dono = models.ForeignKey(User, verbose_name="Dono", on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.placa
