@@ -9,7 +9,7 @@ class ModeloSerializer(serializers.HyperlinkedModelSerializer):
 class VeiculoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Veiculo
-        fields = ["id","placa","quilometragem","status","preco","veiculo","servico","dono"]
+        fields = ["id","placa","quilometragem","status","preco","veiculo","servico","dono","cor"]
 
 class AnuncioSerializer(serializers.ModelSerializer):
     class Meta:

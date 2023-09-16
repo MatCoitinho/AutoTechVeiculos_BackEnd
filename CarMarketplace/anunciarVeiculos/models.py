@@ -34,6 +34,7 @@ class Veiculo(models.Model):
     veiculo = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Modelo/Marca")
     servico = models.BooleanField(verbose_name="Serviço", default=False)
     dono = models.ForeignKey(User, verbose_name="Dono", on_delete=models.CASCADE, null=True)
+    cor = models.CharField(max_length=50, verbose_name= "Cor", default="undefined")
 
     def __str__(self):
         return self.placa

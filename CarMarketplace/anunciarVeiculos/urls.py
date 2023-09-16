@@ -5,8 +5,8 @@ from .views import ModeloViewSet, VeiculoViewSet, AnuncioViewSet
 
 
 router = DefaultRouter()
-router.register(r'Modelo', VeiculoViewSet)
-router.register(r'Veiculo', ModeloViewSet)
+router.register(r'Modelo', ModeloViewSet)
+router.register(r'Veiculo', VeiculoViewSet)
 router.register(r'Anuncio', AnuncioViewSet)
 
 urlpatterns = router.urls

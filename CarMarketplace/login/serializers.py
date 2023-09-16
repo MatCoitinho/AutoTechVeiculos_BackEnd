@@ -1,10 +1,9 @@
 
 from .models import Cliente
 from django.contrib.auth.models import User
-
 from rest_framework import serializers
 
-class UsuarioSerializer(serializers.ModelSerializer):
+class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
 
         model = Cliente
