@@ -16,4 +16,4 @@ class Cliente(models.Model):
 
 
     def __str__(self):
-        return self.cpf
+        return self.user.username
