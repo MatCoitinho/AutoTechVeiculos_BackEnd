@@ -16,7 +16,9 @@ class Solicitacao(models.Model):
         gasolina = "Gasol", ("Gasolina")
         alcool = "alco", ("Alcool")
         Flex = "Flex", ("Flex")
-    
+        hibrido = "Hibrid", ("Híbrido")
+        eletrico = "eletric", ("Elétrico")
+            
     tipocombust = models.CharField(
         max_length=20,
         choices=Combustivel.choices,

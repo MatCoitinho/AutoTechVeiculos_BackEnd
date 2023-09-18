@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 from login.models import Cliente
 
 
@@ -8,6 +9,9 @@ class Modelo(models.Model):
         gasolina = "Gasol", ("Gasolina")
         alcool = "alco", ("Alcool")
         Flex = "Flex", ("Flex")
+        hibrido = "Hibrid", ("Híbrido")
+        eletrico = "eletric", ("Elétrico")
+
 
     tipoCombustivel = models.CharField(
         max_length=20,
@@ -16,11 +20,23 @@ class Modelo(models.Model):
         verbose_name="Tipo Combustível"
     )
 
+    def validar_data(value):
+        if value < 0 or value > 10000:
+            raise ValidationError("O ano deve ter no máximo 4 dígitos")
+
     model = models.CharField(max_length=50, verbose_name="Modelo")
     marca = models.CharField(max_length=20,verbose_name="Marca")
-    ano = models.DateField(verbose_name="Ano Do Modelo",)
-    cambio = models.BooleanField(verbose_name="Tipo De Cambio", default=True)
-    categoria = models.CharField(max_length=10, verbose_name="Categoria Carro")
+    ano = models.PositiveIntegerField(verbose_name="Ano",validators=[validar_data],help_text="O ano deve ter no máximo 4 dígitos")
+    cambio = models.BooleanField(verbose_name="Automático", default=True)
+    class CategoriaCarro(models.TextChoices):
+        compacto = "comp",("Compacto")
+        seda = "seda",("Sedan")
+        suv = "suv",("SUV")
+        hatchback = "hatch",("Hatchback")
+        picape = "picap",("Picape")
+        esportivo = "esport",("Esportivo")
+
+    categoria = models.CharField(max_length=40, verbose_name="Categoria",choices=CategoriaCarro.choices,default="Undefined")
     qtdPortas = models.IntegerField(verbose_name="Quantidade de portas")
 
     def __str__(self):
