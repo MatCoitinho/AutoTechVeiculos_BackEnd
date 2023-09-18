@@ -13,11 +13,11 @@ class Solicitacao(models.Model):
     solicitante = models.ForeignKey(Cliente, verbose_name="Solicitante", null= True, on_delete=models.CASCADE)
 
     class Combustivel(models.TextChoices):
-        gasolina = "Gasol", ("Gasolina")
-        alcool = "alco", ("Alcool")
-        Flex = "Flex", ("Flex")
-        hibrido = "Hibrid", ("Híbrido")
-        eletrico = "eletric", ("Elétrico")
+        gasolina = "gasolina", ("Gasolina")
+        alcool = "alcool", ("Alcool")
+        Flex = "flex", ("Flex")
+        hibrido = "hibrido", ("Híbrido")
+        eletrico = "eletrico", ("Elétrico")
             
     tipocombust = models.CharField(
         max_length=20,

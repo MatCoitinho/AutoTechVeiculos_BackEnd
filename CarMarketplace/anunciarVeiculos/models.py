@@ -6,11 +6,11 @@ from login.models import Cliente
 class Modelo(models.Model):
 
     class TipoCombustivel(models.TextChoices):
-        gasolina = "Gasol", ("Gasolina")
-        alcool = "alco", ("Alcool")
-        Flex = "Flex", ("Flex")
-        hibrido = "Hibrid", ("Híbrido")
-        eletrico = "eletric", ("Elétrico")
+        gasolina = "gasolina", ("Gasolina")
+        alcool = "alcool", ("Alcool")
+        Flex = "flex", ("Flex")
+        hibrido = "hibrido", ("Híbrido")
+        eletrico = "eletrico", ("Elétrico")
 
 
     tipoCombustivel = models.CharField(
@@ -29,12 +29,12 @@ class Modelo(models.Model):
     ano = models.PositiveIntegerField(verbose_name="Ano",validators=[validar_data],help_text="O ano deve ter no máximo 4 dígitos")
     cambio = models.BooleanField(verbose_name="Automático", default=True)
     class CategoriaCarro(models.TextChoices):
-        compacto = "comp",("Compacto")
-        seda = "seda",("Sedan")
+        compacto = "compacto",("Compacto")
+        seda = "sedan",("Sedan")
         suv = "suv",("SUV")
-        hatchback = "hatch",("Hatchback")
-        picape = "picap",("Picape")
-        esportivo = "esport",("Esportivo")
+        hatchback = "hatchback",("Hatchback")
+        picape = "picape",("Picape")
+        esportivo = "esportivo",("Esportivo")
 
     categoria = models.CharField(max_length=40, verbose_name="Categoria",choices=CategoriaCarro.choices,default="Undefined")
     qtdPortas = models.IntegerField(verbose_name="Quantidade de portas")
@@ -54,8 +54,6 @@ class Veiculo(models.Model):
 
     def __str__(self):
         return self.placa
-
-
 
 class Anuncio(models.Model):
     pontos = models.IntegerField(verbose_name="Pontos")
