@@ -34,9 +34,8 @@ def Cadastrar(request):
                     cliente = Cliente.objects.create(cpf = cpfs, telefone = telefones, endereco = enderecos)
                     user.save()
                     cliente.save()
-                    
-
-                return JsonResponse({'mensagem': 'Usuario Cadastrado com Sucesso'})
+                    return JsonResponse({'mensagem': 'Usuario Cadastrado com Sucesso'})
+                
             except Exception as e:
                 return JsonResponse({'erro': str(e)})
         else:
