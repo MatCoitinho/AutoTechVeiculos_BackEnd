@@ -1,7 +1,7 @@
 from .models import Modelo, Veiculo, Anuncio
 from rest_framework import serializers
 
-class ModeloSerializer(serializers.HyperlinkedModelSerializer):
+class ModeloSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modelo
         fields = ["id","tipoCombustivel","model","marca","ano","cambio","categoria","qtdPortas"]
