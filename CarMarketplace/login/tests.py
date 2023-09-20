@@ -26,8 +26,5 @@ class CadastrarViewTestCase(TestCase):
         # Verifica se o usuário foi criado no banco de dados
         self.assertTrue(User.objects.filter(username='Coito').exists())
 
-        # Verifica se outros dados do cliente foram criados no banco de dados
-        # Adicione as verificações necessárias aqui
-
         # Verifica o conteúdo da resposta JSON
         self.assertJSONEqual(str(response.content, encoding='utf8'), {'mensagem': 'Usuario Cadastrado com Sucesso'})

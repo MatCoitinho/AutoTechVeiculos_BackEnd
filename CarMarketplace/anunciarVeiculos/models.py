@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from login.models import Cliente
+from django.views.decorators.csrf import csrf_exempt
 
 
 class Modelo(models.Model):

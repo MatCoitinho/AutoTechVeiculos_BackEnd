@@ -1,10 +1,12 @@
 from rest_framework import viewsets
-
+from django.views.decorators.csrf import csrf_exempt
 from .models import Cliente
 from django.contrib.auth.models import User
 from .serializers import ClienteSerializer, UserSerializer
 from django.http import JsonResponse
 import json
+
+
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
     queryset = Cliente.objects.all()
@@ -13,9 +15,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
+
+@csrf_exempt
 def Cadastrar(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
+        print(data)
         usname = data.get('username')
         firstName = data.get('primeiroNome')
         lastName = data.get('ultimoNome')
@@ -34,7 +39,7 @@ def Cadastrar(request):
                     cliente = Cliente.objects.create(cpf = cpfs, telefone = telefones, endereco = enderecos)
                     user.save()
                     cliente.save()
-                    return JsonResponse({'mensagem': 'Usuario Cadastrado com Sucesso'})
+                    return JsonResponse({'mensagem': 'Usuario Cadastrado com Sucesso'}).status_code(200)
                 
             except Exception as e:
                 return JsonResponse({'erro': str(e)})

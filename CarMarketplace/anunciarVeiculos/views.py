@@ -2,6 +2,7 @@
 from rest_framework import viewsets
 from .models import Modelo, Veiculo, Anuncio
 from .serializers import ModeloSerializer, VeiculoSerializer, AnuncioSerializer
+from django.views.decorators.csrf import csrf_exempt
 
 
 class ModeloViewSet(viewsets.ModelViewSet):
