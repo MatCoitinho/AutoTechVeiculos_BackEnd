@@ -7,21 +7,9 @@ class Solicitacao(models.Model):
     modelo = models.CharField(max_length=50, verbose_name="Modelo")
     ano = models.CharField(max_length=4, verbose_name="Ano")
     quilometragem = models.CharField(max_length=6, verbose_name="Quilometragem")
-    cambio = models.BooleanField(verbose_name="Automático",default=False)
-    data = models.DateField(verbose_name="Data", auto_now_add=True)
-    servico = models.BooleanField(verbose_name="Alugar?",default=False)
+    cambio = models.CharField(verbose_name="Câmbio",max_length=50)
+    data = models.CharField(verbose_name="Data",max_length=50)
+    servico = models.BooleanField(verbose_name="Serviço",default=False)
     solicitante = models.ForeignKey(Cliente, verbose_name="Solicitante", null= True, on_delete=models.CASCADE)
-
-    class Combustivel(models.TextChoices):
-        gasolina = "gasolina", ("Gasolina")
-        alcool = "alcool", ("Alcool")
-        Flex = "flex", ("Flex")
-        hibrido = "hibrido", ("Híbrido")
-        eletrico = "eletrico", ("Elétrico")
-            
-    tipocombust = models.CharField(
-        max_length=20,
-        choices=Combustivel.choices,
-        default="Undefined",
-        verbose_name="Combustível"
-    )
+    combustivel = models.CharField(verbose_name="Combustível",max_length=50,default="Gasolina")
+    situacao = models.BooleanField(default=False,verbose_name="Situação")

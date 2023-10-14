@@ -2,7 +2,7 @@ from rest_framework import viewsets
 from django.views.decorators.csrf import csrf_exempt
 from .models import Cliente
 from django.contrib.auth.models import User
-from .serializers import ClienteSerializer, UserSerializer
+from .serializers import ClienteSerializer
 from django.http import JsonResponse
 import json
 from rest_framework.permissions import AllowAny
@@ -11,11 +11,6 @@ from rest_framework.permissions import AllowAny
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
     queryset = Cliente.objects.all()
-    permission_classes = [AllowAny]
-
-class UserViewSet(viewsets.ModelViewSet):
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
     permission_classes = [AllowAny]
 
 
@@ -37,7 +32,7 @@ def Cadastrar(request):
                 if User.objects.filter(username = usname).exists():
                     print("Username ja existe. Escolha outro")
                 else:
-                    user = User.objects.create_user(username=usname, first_name = firstName, last_name = lastName, password=senha, email= emails)
+                    user = User.objects.create_user(username=emails, first_name = firstName, last_name = lastName, password=senha, email= emails)
                     cliente = Cliente.objects.create(cpf = cpfs, telefone = telefones, endereco = enderecos, user = user)
                     user.save()
                     cliente.save()

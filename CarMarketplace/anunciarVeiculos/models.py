@@ -62,6 +62,7 @@ class Anuncio(models.Model):
     img2 = models.CharField(max_length=100, verbose_name="Imagem dois")
     descricao = models.TextField(max_length=300, verbose_name="Descricao")
     veiculo = models.ForeignKey(Veiculo, verbose_name="Veiculo", on_delete=models.CASCADE)
+    destaque = models.BooleanField(verbose_name="Destaque",default=False)
 
     def __str__(self):
         return self.veiculo.placa
