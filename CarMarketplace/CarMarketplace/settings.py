@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'solicitarAnuncio',
     'corsheaders',
     'reservarVeiculos',
+    'alugarVeiculo',
 
 ]
 
