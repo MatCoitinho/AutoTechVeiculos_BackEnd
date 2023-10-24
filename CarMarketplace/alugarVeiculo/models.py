@@ -5,5 +5,5 @@ from anunciarVeiculos.models import Veiculo
 class Alugar(models.Model):
     cliente = models.ForeignKey(Cliente, verbose_name="Cliente", on_delete=models.CASCADE)
     veiculo = models.ForeignKey(Veiculo, verbose_name="Veiculo", on_delete=models.CASCADE)
-    data = models.DateField(verbose_name="Data da visita") 
-    horario = models.TimeField(verbose_name="Hora da visita")
+    dataInicio = models.DateField(verbose_name="Data da retirada",null=True) 
+    dataDev = models.DateField(verbose_name="Data de devolução",null=True)

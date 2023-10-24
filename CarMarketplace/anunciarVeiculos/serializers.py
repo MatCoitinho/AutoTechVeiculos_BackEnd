@@ -4,18 +4,27 @@ from login.serializers import ClienteSerializer
 class ModeloSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modelo
-        fields = ["id","tipoCombustivel","model","marca","ano","cambio","categoria","qtdPortas"]
+        fields = '__all__'
 
 class VeiculoSerializer(serializers.ModelSerializer):
-    modelo = ModeloSerializer(read_only=True)
-    dono = ClienteSerializer(read_only=True)
     class Meta:
         model = Veiculo
-        fields = ["id","placa","quilometragem","status","modelo","dono","cor"]
+        fields = '__all__'
 
 class AnuncioSerializer(serializers.ModelSerializer):
-    veiculo = VeiculoSerializer(read_only=True)
+    modelo = serializers.CharField(source='veiculo.modelo.model',read_only=True)
+    marca = serializers.CharField(source='veiculo.modelo.marca',read_only=True)
+    cambio = serializers.CharField(source='veiculo.modelo.cambio',read_only=True)
+    ano = serializers.CharField(source='veiculo.modelo.ano',read_only=True)
+    combustivel = serializers.CharField(source='veiculo.modelo.tipoCombustivel',read_only=True)
+    placa = serializers.CharField(source='veiculo.placa',read_only=True)
+    cor = serializers.CharField(source='veiculo.cor',read_only=True)
+    categoria = serializers.CharField(source='veiculo.modelo.categoria',read_only=True)
+    portas = serializers.CharField(source='veiculo.modelo.qntdPortas',read_only=True)
+    status = serializers.CharField(source='veiculo.status',read_only=True)
+    dono = serializers.CharField(source='veiculo.dono.cpf',read_only=True)
+    
     class Meta:
         model = Anuncio
-        fields = ["id","pontos","img1","img2","descricao","veiculo","destaque","preco","servico"]
+        fields = '__all__'
 

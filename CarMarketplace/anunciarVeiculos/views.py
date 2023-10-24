@@ -21,4 +21,3 @@ class VeiculoViewSet(viewsets.ModelViewSet):
 class AnuncioViewSet(viewsets.ModelViewSet):
     serializer_class = AnuncioSerializer
     queryset = Anuncio.objects.all().order_by('-destaque','-pontos')
-

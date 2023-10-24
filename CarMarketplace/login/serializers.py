@@ -1,14 +1,11 @@
 from .models import Cliente
 from rest_framework import serializers
-from django.contrib.auth.models import User
-
-class UserSerializer(serializers.ModelSerializer):
-    class Meta: 
-        model = User
-        fields = '__all__'
 
 class ClienteSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only = True)
+    cliente_email = serializers.CharField(source='user.email',read_only=True)
+    cliente_firstName = serializers.CharField(source='user.first_name',read_only=True)
+    cliente_lastName = serializers.CharField(source='user.last_name',read_only=True)
+
     class Meta:
         model = Cliente
         fields = '__all__'
