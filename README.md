@@ -8,6 +8,39 @@ Matheus Henrique Coitinho Loss(2458829) FullStack, Documentação,<br/>
 Pedro Henrique Gradella(2482193) Frontend, Revisão do código,<br/>
 João Pedro da Silva de Andrade (2458810) FullStack, Documentação.
 
+
+**Crie um ambiente virutal**
+```python
+  python -m venv env
+```
+**ative o ambiente virutal**
+```python
+  env\Scripts\activate
+```
+**Instale o Django**
+```python
+  pip install django
+```
+**Também instale o Django rest framework**
+```python
+  pip install djangorestframework
+```
+**Instale o dotenv para usar utilizar as variáveis de ambiente**
+```python
+  pip install python-dotenv
+```
+**Crie um arquivo ```.env``` e dentro dele adione a secret key usando esse padrão**
+```python
+ SECRET_KEY = 'sua secret key'
+```
+**Algumas bibliotecas extras também devem ser instaladas**
+```python
+ pip install django-cors-headers
+```
+```python
+ pip install pillow
+```
+
 <h2>Backend(Tecnologias e Ferramentas):</h2> <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=python,django"/>
   </a>
