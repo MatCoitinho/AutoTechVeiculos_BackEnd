@@ -47,21 +47,25 @@ class Veiculo(models.Model):
     placa = models.CharField(max_length=7, unique = True, verbose_name = "Placa")
     quilometragem = models.CharField(max_length=7, verbose_name="Quilometragem")
     status = models.BooleanField(verbose_name="Status Do Veiculo", default=False)
-    preco = models.IntegerField(verbose_name = "Preco Do Veiculo")
-    veiculo = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Modelo/Marca")
-    servico = models.BooleanField(verbose_name="Serviço", default=False)
+    modelo = models.ForeignKey(Modelo, on_delete=models.CASCADE, verbose_name="Modelo")
     dono = models.ForeignKey(Cliente, verbose_name="Dono", on_delete=models.CASCADE, null=True)
     cor = models.CharField(max_length=50, verbose_name= "Cor", default="undefined")
 
     def __str__(self):
         return self.placa
 
+def upload_image(instance, filename):
+    return f"{instance.veiculo}-{filename}"
 class Anuncio(models.Model):
-    pontos = models.IntegerField(verbose_name="Pontos")
-    img1 = models.CharField(max_length=100, verbose_name="Imagem um")
-    img2 = models.CharField(max_length=100, verbose_name="Imagem dois")
+    pontos = models.IntegerField(verbose_name="Pontos", default=0)
+    img1 = models.ImageField(upload_to=upload_image, blank= True, null=True, verbose_name="Imagem um")
+    img2 = models.ImageField(upload_to=upload_image, blank= True, null=True, verbose_name="Imagem dois")
     descricao = models.TextField(max_length=300, verbose_name="Descricao")
     veiculo = models.ForeignKey(Veiculo, verbose_name="Veiculo", on_delete=models.CASCADE)
-
+    destaque = models.BooleanField(verbose_name="Destaque",default=False)
+    preco = models.IntegerField(verbose_name = "Preco Do Veiculo",default=0)
+    servico = models.BooleanField(verbose_name="Serviço", default=False)
+    
     def __str__(self):
         return self.veiculo.placa
+    
