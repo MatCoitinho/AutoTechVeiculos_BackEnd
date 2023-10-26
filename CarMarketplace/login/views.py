@@ -28,18 +28,17 @@ def Cadastrar(request):
         enderecos = data.get('endereco')
 
         if usname and firstName and lastName and senha and emails and cpfs and telefones and enderecos:
-            try:
-                if User.objects.filter(username = usname).exists():
-                    print("Username ja existe. Escolha outro")
-                else:
-                    user = User.objects.create_user(username=emails, first_name = firstName, last_name = lastName, password=senha, email= emails)
-                    cliente = Cliente.objects.create(cpf = cpfs, telefone = telefones, endereco = enderecos, user = user)
-                    user.save()
-                    cliente.save()
-                    return JsonResponse({'mensagem': 'Usuario Cadastrado com Sucesso'}).status_code(200)
-                
-            except Exception as e:
-                return JsonResponse({'erro': str(e)})
+           
+            if User.objects.filter(username = usname).exists():
+                print("Username ja existe. Escolha outro")
+            else:
+                user = User.objects.create_user(username=emails, first_name = firstName, last_name = lastName, password=senha, email= emails)
+                cliente = Cliente.objects.create(cpf = cpfs, telefone = telefones, endereco = enderecos, user = user)
+                user.save()
+                cliente.save()
+                print("usuario salvo")
+                return JsonResponse({'mensagem': 'Usuario Cadastrado com Sucesso'},status = 200)
+            
         else:
             return JsonResponse({'erro': 'Campos obrigatorios ausentes.'})
     else:

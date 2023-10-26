@@ -41,8 +41,8 @@ class Modelo(models.Model):
     qtdPortas = models.IntegerField(verbose_name="Quantidade de portas")
 
     def __str__(self):
-        return self.model
-
+        return f"{self.marca} {self.model} ({self.ano})"
+    
 class Veiculo(models.Model):
     placa = models.CharField(max_length=7, unique = True, verbose_name = "Placa")
     quilometragem = models.CharField(max_length=7, verbose_name="Quilometragem")

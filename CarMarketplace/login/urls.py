@@ -11,5 +11,5 @@ router.register(r'Cliente', ClienteViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('cadastrar/',Cadastrar)
+    path('cadastrar/',Cadastrar,name='Cadastrar')
 ]

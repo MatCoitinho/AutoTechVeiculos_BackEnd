@@ -8,7 +8,7 @@ class Solicitacao(models.Model):
     ano = models.CharField(max_length=4, verbose_name="Ano")
     quilometragem = models.CharField(max_length=6, verbose_name="Quilometragem")
     cambio = models.CharField(verbose_name="Câmbio",max_length=50)
-    data = models.CharField(verbose_name="Data",max_length=50)
+    data = models.DateField(auto_now_add=True)
     servico = models.BooleanField(verbose_name="Serviço",default=False)
     solicitante = models.ForeignKey(Cliente, verbose_name="Solicitante", null= True, on_delete=models.CASCADE)
     combustivel = models.CharField(verbose_name="Combustível",max_length=50,default="Gasolina")

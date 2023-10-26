@@ -18,6 +18,7 @@ class AlugarSerializer(serializers.ModelSerializer):
     cambio= serializers.CharField(source='veiculo.modelo.cambio', read_only=True)
     categoria= serializers.CharField(source='veiculo.modelo.categoria', read_only=True)
     qtdPortas= serializers.CharField(source='veiculo.modelo.qtdPortas', read_only=True)
+    placa = serializers.CharField(source='veiculo.placa',read_only=True)
     class Meta:
         model = Alugar
         fields = '__all__'
