@@ -1,8 +1,5 @@
 from .models import Alugar
 from rest_framework import serializers
-from login.serializers import ClienteSerializer
-from anunciarVeiculos.serializers import VeiculoSerializer
-
 class AlugarSerializer(serializers.ModelSerializer):
     cliente_email = serializers.CharField(source='cliente.user.email',read_only=True)
     cliente_firstName = serializers.CharField(source='cliente.user.first_name',read_only=True) 
