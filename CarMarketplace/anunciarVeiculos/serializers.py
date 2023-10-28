@@ -7,6 +7,14 @@ class ModeloSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class VeiculoSerializer(serializers.ModelSerializer):
+    tipoCombustivel = serializers.CharField(source='modelo.tipoCombustivel', read_only=True)
+    model= serializers.CharField(source='modelo.model', read_only=True)
+    marca= serializers.CharField(source='modelo.marca', read_only=True)
+    ano= serializers.CharField(source='modelo.ano', read_only=True)
+    cambio= serializers.CharField(source='modelo.cambio', read_only=True)
+    categoria= serializers.CharField(source='modelo.categoria', read_only=True)
+    qtdPortas= serializers.CharField(source='modelo.qtdPortas', read_only=True)
+    dono_cpf = serializers.CharField(source='dono.cpf',read_only=True)
     class Meta:
         model = Veiculo
         fields = '__all__'
