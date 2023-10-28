@@ -40,6 +40,12 @@ João Pedro da Silva de Andrade (2458810) FullStack, Documentação.
 ```python
  pip install pillow
 ```
+```python
+ pip install djangorestframework_simplejwt
+```
+```python
+ pip install django-filter
+```
 
 <h2>Backend(Tecnologias e Ferramentas):</h2> <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=python,django"/>
