@@ -5,24 +5,30 @@ from .serializers import ModeloSerializer, VeiculoSerializer, AnuncioSerializer
 from rest_framework.permissions import AllowAny
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from rest_framework.response import Response
 from rest_framework import status
 import json
 from login.models import Cliente
+from django_filters.rest_framework import DjangoFilterBackend
 
 class ModeloViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
     serializer_class = ModeloSerializer
     queryset = Modelo.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['model','marca']
 
 class VeiculoViewSet(viewsets.ModelViewSet):
     serializer_class = VeiculoSerializer
     queryset = Veiculo.objects.all()
     permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['cor','placa','modelo__model']
 
 class AnuncioViewSet(viewsets.ModelViewSet):
     serializer_class = AnuncioSerializer
     queryset = Anuncio.objects.all().order_by('-destaque','-pontos')
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['veiculo__modelo__model','veiculo__modelo__marca']
 
 @csrf_exempt
 def criarVeiculo(request):
@@ -85,3 +91,4 @@ def criarAnuncio(request):
     else:
         print("Metodo errado")
         return JsonResponse({'erro':'Metodo nao permitido.'})
+    

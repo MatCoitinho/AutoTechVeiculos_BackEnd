@@ -14,7 +14,7 @@ class VeiculoSerializer(serializers.ModelSerializer):
     cambio= serializers.CharField(source='modelo.cambio', read_only=True)
     categoria= serializers.CharField(source='modelo.categoria', read_only=True)
     qtdPortas= serializers.CharField(source='modelo.qtdPortas', read_only=True)
-    dono = serializers.CharField(source='dono.cpf',read_only=True)
+    dono_cpf = serializers.CharField(source='dono.cpf',read_only=True)
     class Meta:
         model = Veiculo
         fields = '__all__'

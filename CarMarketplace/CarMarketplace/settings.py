@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'reservarVeiculos',
     'alugarVeiculo',
+    'django_filters'
 
 ]
 

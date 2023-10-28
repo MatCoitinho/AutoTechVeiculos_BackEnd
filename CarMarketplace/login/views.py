@@ -6,12 +6,16 @@ from .serializers import ClienteSerializer
 from django.http import JsonResponse
 import json
 from rest_framework.permissions import AllowAny
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
     queryset = Cliente.objects.all()
     permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['cpf','user__first_name']
+
 
 
 @csrf_exempt
