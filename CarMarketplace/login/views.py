@@ -25,7 +25,6 @@ class ClienteViewSet(viewsets.ModelViewSet):
 def Cadastrar(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-        usname = data.get('username')
         firstName = data.get('primeiroNome')
         lastName = data.get('ultimoNome')
         senha = data.get('senha')
@@ -34,9 +33,9 @@ def Cadastrar(request):
         telefones = data.get('telefone')
         enderecos = data.get('endereco')
 
-        if usname and firstName and lastName and senha and emails and cpfs and telefones and enderecos:
+        if firstName and lastName and senha and emails and cpfs and telefones and enderecos:
            
-            if User.objects.filter(username = usname).exists():
+            if User.objects.filter(username = emails).exists():
                 print("Username ja existe. Escolha outro")
             else:
                 user = User.objects.create_user(username=emails, first_name = firstName, last_name = lastName, password=senha, email= emails)

@@ -27,6 +27,7 @@ class VeiculoViewSet(viewsets.ModelViewSet):
 class AnuncioViewSet(viewsets.ModelViewSet):
     serializer_class = AnuncioSerializer
     queryset = Anuncio.objects.all().order_by('-destaque','-pontos')
+    permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['veiculo__modelo__model','veiculo__modelo__marca']
 
