@@ -7,7 +7,10 @@ from django.http import JsonResponse
 import json
 from rest_framework.permissions import AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
-
+from rest_framework.response import Response
+from django.contrib.auth import authenticate
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.decorators import api_view
 
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
@@ -47,6 +50,44 @@ def Cadastrar(request):
             return JsonResponse({'erro': 'Campos obrigatorios ausentes.'})
     else:
         return JsonResponse({'erro': 'Metodo nao permitido.'})
+    
+
+
+@csrf_exempt
+@api_view(['POST'])
+def Logar(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        password = data.get('password')
+        user = authenticate(request, username=email, password = password)
+
+        if user:
+            refresh = RefreshToken.for_user(user)
+            cliente = Cliente.objects.get(user = user)
+            return Response({
+                'refresh': str(refresh),
+                'access': str(refresh.access_token),
+                'user': {
+                    'id': cliente.id,
+                    'name' : user.first_name,
+                    'email': user.username,
+                    'phone': cliente.telefone,
+                    'cpf': cliente.cpf,
+                    'address': cliente.endereco
+                },
+            })
+        else:
+            return JsonResponse({'erro': 'Credenciais inválidas'}, status=400)
+        
+    else:
+        return JsonResponse({'erro':'Metodo nao permitido'})
+
+
+
+
+
+
 
 
 
