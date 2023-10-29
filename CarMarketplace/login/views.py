@@ -64,19 +64,30 @@ def Logar(request):
 
         if user:
             refresh = RefreshToken.for_user(user)
-            cliente = Cliente.objects.get(user = user)
-            return Response({
-                'refresh': str(refresh),
-                'access': str(refresh.access_token),
-                'user': {
-                    'id': cliente.id,
-                    'name' : user.first_name,
-                    'email': user.username,
-                    'phone': cliente.telefone,
-                    'cpf': cliente.cpf,
-                    'address': cliente.endereco
-                },
-            })
+            if user.is_superuser:
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                    'user': {
+                        'id': user.id,
+                        'name' : user.first_name,
+                        'is_superuser': user.is_superuser,
+                    },
+                })
+            else:
+                cliente = Cliente.objects.get(user = user)
+                return Response({
+                    'refresh': str(refresh),
+                    'access': str(refresh.access_token),
+                    'user': {
+                        'id': cliente.id,
+                        'name' : user.first_name,
+                        'email': user.username,
+                        'phone': cliente.telefone,
+                        'cpf': cliente.cpf,
+                        'address': cliente.endereco
+                    },
+                })
         else:
             return JsonResponse({'erro': 'Credenciais inválidas'}, status=400)
         
