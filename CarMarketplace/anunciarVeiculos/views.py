@@ -29,7 +29,7 @@ class AnuncioViewSet(viewsets.ModelViewSet):
     queryset = Anuncio.objects.all().order_by('-destaque','-pontos')
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['veiculo__modelo__model','veiculo__modelo__marca']
+    filterset_fields = ['veiculo__modelo__model','veiculo__modelo__marca','destaque']
 
 @csrf_exempt
 def criarVeiculo(request):
