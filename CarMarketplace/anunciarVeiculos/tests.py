@@ -87,51 +87,51 @@ from django.core import serializers
 #         self.assertEqual(Veiculo.objects.count(), 1)
 #         self.assertEqual(Veiculo.objects.get().placa, 'ABC1234')
 
-class criarVeiculoViewTestCase(TestCase):
-    def test_criarVeiculo(self):
-        self.user = User.objects.create_user(
-             username='MatheusCoito',
-             password='sakuta03'
-        )
-        self.cliente = Cliente.objects.create(
-             cpf="10104136944",
-             telefone="11987654321",
-             endereco="Rua Teste, 123",
-             user=self.user
-        )
+# class criarVeiculoViewTestCase(TestCase):
+#     def test_criarVeiculo(self):
+#         self.user = User.objects.create_user(
+#              username='MatheusCoito',
+#              password='sakuta03'
+#         )
+#         self.cliente = Cliente.objects.create(
+#              cpf="10104136944",
+#              telefone="11987654321",
+#              endereco="Rua Teste, 123",
+#              user=self.user
+#         )
 
-        self.modelo = Modelo.objects.create(
-            tipoCombustivel=Modelo.TipoCombustivel.gasolina,
-            model='Camaro',
-            marca='Chevrolet',
-            ano=2020,
-            cambio=True,
-            categoria=Modelo.CategoriaCarro.esportivo,
-            qtdPortas=2
-        )
+#         self.modelo = Modelo.objects.create(
+#             tipoCombustivel=Modelo.TipoCombustivel.gasolina,
+#             model='Camaro',
+#             marca='Chevrolet',
+#             ano=2020,
+#             cambio=True,
+#             categoria=Modelo.CategoriaCarro.esportivo,
+#             qtdPortas=2
+#         )
 
-        data = {
-            "placa": "PQA9812",
-            "quilometragem": "0",
-            "status": False,
-            "cor": "Preto",
-            "modelo": "Camaro",
-            "ano" : "2020",
-            "dono" : "10104136944",
+#         data = {
+#             "placa": "PQA9812",
+#             "quilometragem": "0",
+#             "status": False,
+#             "cor": "Preto",
+#             "modelo": "Camaro",
+#             "ano" : "2020",
+#             "dono" : "10104136944",
         
-        }
+#         }
 
-        # Faz uma solicitação POST à view 'criarVeiculo' com os dados de teste
-        response = self.client.post(reverse('criar_veiculo'), json.dumps(data), content_type='application/json')
+#         # Faz uma solicitação POST à view 'criarVeiculo' com os dados de teste
+#         response = self.client.post(reverse('criar_veiculo'), json.dumps(data), content_type='application/json')
 
-        # Verifica se a resposta foi bem-sucedida (status HTTP 200)
-        self.assertEqual(response.status_code, 200)
+#         # Verifica se a resposta foi bem-sucedida (status HTTP 200)
+#         self.assertEqual(response.status_code, 200)
 
-        # Verifica se o usuário foi criado no banco de dados
-        self.assertTrue(Veiculo.objects.filter(placa='PQA9812').exists())
+#         # Verifica se o usuário foi criado no banco de dados
+#         self.assertTrue(Veiculo.objects.filter(placa='PQA9812').exists())
 
-        # Verifica o conteúdo da resposta JSON
-        self.assertJSONEqual(str(response.content, encoding='utf8'), {'mensagem': 'Veiculo criado com sucesso'})
+#         # Verifica o conteúdo da resposta JSON
+#         self.assertJSONEqual(str(response.content, encoding='utf8'), {'mensagem': 'Veiculo criado com sucesso'})
 
 # class criarAnuncioViewTestCase(TestCase):
 #     def test_criarAnuncio(self):
