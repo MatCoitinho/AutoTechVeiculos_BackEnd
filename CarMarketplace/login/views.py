@@ -65,26 +65,29 @@ def Logar(request):
             refresh = RefreshToken.for_user(user)
             if user.is_superuser:
                 return Response({
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
+                    'token': str(refresh.access_token),
                     'user': {
                         'id': user.id,
                         'name' : user.first_name,
+                        'email': user.username,
+                        'phone': '',
+                        'cpf': '',
+                        'address': '',
                         'is_superuser': user.is_superuser,
                     },
                 })
             else:
                 cliente = Cliente.objects.get(user = user)
                 return Response({
-                    'refresh': str(refresh),
-                    'access': str(refresh.access_token),
+                    'token': str(refresh.access_token),
                     'user': {
                         'id': cliente.id,
                         'name' : user.first_name,
                         'email': user.username,
                         'phone': cliente.telefone,
                         'cpf': cliente.cpf,
-                        'address': cliente.endereco
+                        'address': cliente.endereco,
+                        'is_superuser': user.is_superuser,
                     },
                 })
         else:
@@ -94,6 +97,40 @@ def Logar(request):
         return JsonResponse({'erro':'Metodo nao permitido'})
 
 
+@csrf_exempt
+@api_view(['POST'])
+def retrieveUserCliente(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+
+        if email:
+            user = User.objects.get(username = email)
+            if user.is_superuser:
+                return Response({
+                    'id': user.id,
+                    'name' : user.first_name,
+                    'email': user.username,
+                    'phone': '',
+                    'cpf': '',
+                    'address': '',
+                    'is_superuser': user.is_superuser,
+                })
+            else:
+                cliente = Cliente.objects.get(user=user)
+                return Response({
+                    'id': cliente.id,
+                    'name' : user.first_name,
+                    'email': user.username,
+                    'phone': cliente.telefone,
+                    'cpf': cliente.cpf,
+                    'address': cliente.endereco,
+                    'is_superuser': user.is_superuser,
+                })
+        else:
+            return Response({'erro': 'Erro'})
+    else:
+        return Response({'erro': 'Metodo inválido'})
 
 
 

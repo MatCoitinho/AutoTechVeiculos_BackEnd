@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import ClienteViewSet, Cadastrar, Logar
+from .views import ClienteViewSet, Cadastrar, Logar, retrieveUserCliente
 
 from django.urls import path, include
 
@@ -12,5 +12,6 @@ router.register(r'Cliente', ClienteViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('cadastrar/',Cadastrar,name='Cadastrar'),
-    path('logar/',Logar,name='Logar')
+    path('logar/',Logar,name='Logar'),
+    path('retrieve/',retrieveUserCliente, name='Retrieve')
 ]
