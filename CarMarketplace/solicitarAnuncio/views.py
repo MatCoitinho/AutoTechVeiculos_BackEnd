@@ -10,4 +10,4 @@ class SolicitacaoViewSet(viewsets.ModelViewSet):
     queryset = Solicitacao.objects.all()
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['solicitante__cpf']
+    filterset_fields = ['solicitante__cpf','situacao']
