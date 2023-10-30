@@ -75,7 +75,7 @@ def criarAnuncio(request):
         preco = data.get('preco')
         servico = data.get('servico')
 
-        if pontos and img1 and img2 and descricao and placa and preco:
+        if img1 and img2 and descricao and placa and preco:
             veic = Veiculo.objects.get(placa=placa)
             if Anuncio.objects.filter(veiculo = veic, servico = servico).exists():
                 print("Ja existe um anuncio desse tipo de servico para esse veiculo")
@@ -88,6 +88,7 @@ def criarAnuncio(request):
                 return JsonResponse({'mensagem': 'Anuncio criado com sucesso'}, status=200)
         else:
             print("Campo faltando")
+            print(data)
             return JsonResponse({'erro':'Campos Obrigatorios ausentes'})
     else:
         print("Metodo errado")
