@@ -19,7 +19,7 @@ class SolicitacaoViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['solicitante__cpf','situacao']
 
-
+@csrf_exempt
 def criarSolicitacao(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
