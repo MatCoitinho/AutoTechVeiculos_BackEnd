@@ -102,30 +102,34 @@ def Logar(request):
 def retrieveUserCliente(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-        email = data.get('email')
-
+        email = data
         if email:
+            print(email)
             user = User.objects.get(username = email)
             if user.is_superuser:
                 return Response({
-                    'id': user.id,
-                    'name' : user.first_name,
-                    'email': user.username,
-                    'phone': '',
-                    'cpf': '',
-                    'address': '',
-                    'is_superuser': user.is_superuser,
+
+                    'user':
+                        {'id': user.id,
+                        'name' : user.first_name,
+                        'email': user.username,
+                        'phone': '',
+                        'cpf': '',
+                        'address': '',
+                        'is_superuser': user.is_superuser,}
                 })
             else:
                 cliente = Cliente.objects.get(user=user)
                 return Response({
-                    'id': cliente.id,
-                    'name' : user.first_name,
-                    'email': user.username,
-                    'phone': cliente.telefone,
-                    'cpf': cliente.cpf,
-                    'address': cliente.endereco,
-                    'is_superuser': user.is_superuser,
+                    'user': {
+                        'id': cliente.id,
+                        'name' : user.first_name,
+                        'email': user.username,
+                        'phone': cliente.telefone,
+                        'cpf': cliente.cpf,
+                        'address': cliente.endereco,
+                        'is_superuser': user.is_superuser,
+                        }
                 })
         else:
             return Response({'erro': 'Erro'})
