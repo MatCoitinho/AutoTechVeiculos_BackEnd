@@ -19,6 +19,7 @@ class AlugarViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['veiculo__modelo__model','cliente__cpf']
 
+@csrf_exempt
 def criarAluguel(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
