@@ -35,8 +35,8 @@ def Cadastrar(request):
 
         if firstName and lastName and senha and emails and cpfs and telefones and enderecos:
            
-            if User.objects.filter(username = emails).exists():
-                print("Username ja existe. Escolha outro")
+            if User.objects.filter(username = emails).exists() or Cliente.objects.filter(cpf=cpfs).exists():
+                return JsonResponse({'erro': 'Ja existe um cliente com esse email ou cpf'})
             else:
                 user = User.objects.create_user(username=emails, first_name = firstName, last_name = lastName, password=senha, email= emails)
                 cliente = Cliente.objects.create(cpf = cpfs, telefone = telefones, endereco = enderecos, user = user)
@@ -135,6 +135,42 @@ def retrieveUserCliente(request):
             return Response({'erro': 'Erro'})
     else:
         return Response({'erro': 'Metodo inválido'})
+    
+@csrf_exempt
+def Atualizar(request):
+    if request.method == 'PATCH':
+        data = json.loads(request.body.decode('utf-8'))
+        firstName = data.get('first_name')
+        emails = data.get('email')
+        cpfs = data.get('cpf')
+        telefones = data.get('telefone')
+        enderecos = data.get('endereco')
+
+        if firstName and emails and cpfs and telefones and enderecos:
+            try:
+                
+                cliente = Cliente.objects.get(cpf=cpfs)
+                cliente.telefone = telefones
+                cliente.endereco = enderecos
+                cliente.save()
+
+                user = User.objects.get(id=cliente.user.id)
+                user.first_name = firstName
+                user.username = emails
+                user.email = emails
+                user.save()
+
+
+                return JsonResponse({'mensagem': 'Usuario e Cliente atualizados com sucesso'}, status=200)
+            except User.DoesNotExist:
+                return JsonResponse({'erro': 'Usuario nao encontrado.'}, status=404)
+            except Cliente.DoesNotExist:
+                return JsonResponse({'erro': 'Cliente nao encontrado.'}, status=404)
+        else:
+            return JsonResponse({'erro': 'Campos obrigatorios ausentes.'})
+    else:
+        return JsonResponse({'erro': 'Metodo nao permitido.'})
+
 
 
 

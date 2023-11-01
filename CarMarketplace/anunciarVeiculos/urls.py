@@ -12,5 +12,5 @@ router.register(r'Anuncio', AnuncioViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('criarVeiculo/',criarVeiculo,name='criar_veiculo'),
-    path('criarAnuncio/',criarAnuncio,name='criar_anuncio')
+    path('criarAnuncio/',criarAnuncio,name='criar_anuncio'),
 ]
