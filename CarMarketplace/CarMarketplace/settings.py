@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'reservarVeiculos',
     'alugarVeiculo',
     'django_filters',
+    'django_apscheduler',
+    
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

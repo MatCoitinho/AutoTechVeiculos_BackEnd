@@ -46,6 +46,9 @@ João Pedro da Silva de Andrade (2458810) FullStack, Documentação.
 ```python
  pip install django-filter
 ```
+```python
+ pip install django-apscheduler
+```
 
 <h2>Backend(Tecnologias e Ferramentas):</h2> <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=python,django"/>
