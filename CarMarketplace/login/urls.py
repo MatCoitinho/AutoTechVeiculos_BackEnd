@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import ClienteViewSet, Cadastrar, Logar, retrieveUserCliente, Atualizar
+from .views import ClienteViewSet, Cadastrar, Logar, retrieveUserCliente, Atualizar, change_password
 
 from django.urls import path, include
 
@@ -15,4 +15,5 @@ urlpatterns = [
     path('logar/',Logar,name='Logar'),
     path('retrieve/',retrieveUserCliente, name='Retrieve'),
     path('atualizar/',Atualizar,name='Atualizar'),
+    path('mudarSenha/',change_password,name='MudarSenha')
 ]

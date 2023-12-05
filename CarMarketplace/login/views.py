@@ -11,6 +11,32 @@ from rest_framework.response import Response
 from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
+from django.contrib.auth.hashers import make_password
+
+@csrf_exempt
+def change_password(request):
+    if request.method == 'PATCH':
+        data = json.loads(request.body.decode('utf-8'))
+        cpf = data.get('cpf')
+        senha_atual = data.get('senha_atual')
+        nova_senha = data.get('nova_senha')
+
+        if cpf and senha_atual and nova_senha:
+            cliente = Cliente.objects.get(cpf=cpf)
+            user = cliente.user
+            if user.password == senha_atual:
+                user.password = make_password(nova_senha)
+                user.save()
+                return JsonResponse({'mensagem': 'Senha alterada com sucesso'},status = 200)
+            else:
+                return JsonResponse({'erro': 'Senha atual incorreta'})
+        else:
+            return JsonResponse({'erro': 'Dados faltando'})
+    else:
+        return JsonResponse({'erro': 'Metodo nao permitido'})
+
+
+    
 
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
@@ -170,14 +196,3 @@ def Atualizar(request):
             return JsonResponse({'erro': 'Campos obrigatorios ausentes.'})
     else:
         return JsonResponse({'erro': 'Metodo nao permitido.'})
-
-
-
-
-
-
-
-
-
-
-

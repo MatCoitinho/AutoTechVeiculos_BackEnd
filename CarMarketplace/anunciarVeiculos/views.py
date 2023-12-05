@@ -9,6 +9,8 @@ from rest_framework import status
 import json
 from login.models import Cliente
 from django_filters.rest_framework import DjangoFilterBackend
+from listaDesejos.models import Desejo
+from django.core.mail import send_mail
 
 class ModeloViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
@@ -82,6 +84,14 @@ def criarAnuncio(request):
                 return JsonResponse({'mensagem': 'Ja existe um anuncio desse tipo de servico para esse veiculo'})
             else:
                 veiculo_anuncio = Veiculo.objects.get(placa=placa)
+                desejos = Desejo.objects.filter(modelo = veiculo_anuncio.modelo.model, marca = veiculo_anuncio.modelo.marca, ano = veiculo_anuncio.modelo.ano)
+                for desejo in desejos:
+                    email = desejo.dono.user.username
+                    send_mail('Autotech Veiculos - Lista de Desejos',
+                        'Um veículo que está na sua lista de desejos está disponível no nosso site, entre agora em www.autotech.com para ver',
+                        'autotechveiculos3@gmail.com',
+                        recipient_list=[email])
+                    
                 novo_anuncio = Anuncio.objects.create(pontos = pontos, img1 = img1, img2 = img2, descricao = descricao, veiculo = veiculo_anuncio, destaque = destaque, preco = preco, servico = servico)
                 novo_anuncio.save()
                 print("Anuncio criado com sucesso")

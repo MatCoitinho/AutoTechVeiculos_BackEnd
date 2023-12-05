@@ -18,7 +18,6 @@ load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -29,9 +28,6 @@ SECRET_KEY = str(os.getenv('Secret_Key'))
 DEBUG = True
 
 ALLOWED_HOSTS = ['localhost', 'localhost:8000', 'localhost:8080', '127.0.0.1']
-
-
-
 
 # Application definition
 
@@ -51,6 +47,8 @@ INSTALLED_APPS = [
     'alugarVeiculo',
     'django_filters',
     'django_apscheduler',
+    'listaDesejos',
+    'venderVeiculos',
     
 ]
 
@@ -160,3 +158,11 @@ CORS_ORIGIN_WHITELIST = (
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'autotechveiculos3@gmail.com'
+EMAIL_HOST_PASSWORD = 'wztgcuzjuodwxtbm'
+

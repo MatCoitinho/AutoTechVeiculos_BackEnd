@@ -1,6 +1,5 @@
 from .models import Modelo, Veiculo, Anuncio
 from rest_framework import serializers
-from login.serializers import ClienteSerializer 
 class ModeloSerializer(serializers.ModelSerializer):
     class Meta:
         model = Modelo

@@ -28,5 +28,6 @@ urlpatterns = [
     path('anunciar/', include('anunciarVeiculos.urls')),
     path('solicitar/', include('solicitarAnuncio.urls')),
     path('reservar/', include('reservarVeiculos.urls')),
-    path('alugar/', include('alugarVeiculo.urls'))
+    path('alugar/', include('alugarVeiculo.urls')),
+    path('listaDesejos/',include('listaDesejos.urls')),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
