@@ -30,4 +30,5 @@ urlpatterns = [
     path('reservar/', include('reservarVeiculos.urls')),
     path('alugar/', include('alugarVeiculo.urls')),
     path('listaDesejos/',include('listaDesejos.urls')),
+    path('vender/',include('venderVeiculos.urls'))
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
