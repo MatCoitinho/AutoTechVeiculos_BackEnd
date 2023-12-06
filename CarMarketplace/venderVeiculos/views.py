@@ -40,7 +40,7 @@ def criar_venda(request):
                 marca = reserva.veiculo.modelo.marca
                 ano = reserva.veiculo.modelo.ano
                 mensagem = f'Infelizmente sua reserva do veículo {marca} {modelo} {ano} foi cancelada pois o veículo foi vendido'
-                send_mail('Autotech Veiculos - Reserva Cancelada',
+                send_mail('Autotech Veiculos-Reserva Cancelada',
                 mensagem,
                 'autotechveiculos3@gmail.com',
                 recipient_list=[email])

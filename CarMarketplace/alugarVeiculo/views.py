@@ -25,14 +25,18 @@ def criarAluguel(request):
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
         veic = data.get('id')
+        dataInicio = data.get('inicio')
+        dataDev = data.get('fim')
+        hora = data.get('hora')
 
         if email and veic:
             user = User.objects.get(username = email)
             cliente = Cliente.objects.get(user=user)
             anuncio = Anuncio.objects.get(id=veic)
             veiculo = Veiculo.objects.get(id=anuncio.veiculo.id)
-            novo_aluguel = Alugar.objects.create(cliente = cliente, veiculo = veiculo)
+            novo_aluguel = Alugar.objects.create(cliente = cliente, veiculo = veiculo,dataInicio = dataInicio, dataDev = dataDev, hora_retirada = hora)
             novo_aluguel.save()
+            anuncio.delete()
             return JsonResponse({'mensagem': 'Aluguel feito com sucesso'})
         else:
             return JsonResponse({'erro': 'Campos Faltando'})

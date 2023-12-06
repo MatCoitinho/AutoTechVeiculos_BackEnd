@@ -25,13 +25,15 @@ def criarReserva(request):
         data = json.loads(request.body.decode('utf-8'))
         client = data.get('email')
         veic = data.get('id')
+        dia = data.get('dia')
+        hora = data.get('hora')
 
         if client and veic:
             user = User.objects.get(username = client)
             cliente = Cliente.objects.get(user=user)
             anuncio = Anuncio.objects.get(id=veic)
             veiculo = Veiculo.objects.get(id=anuncio.veiculo.id)
-            nova_reserva = Reserva.objects.create(cliente = cliente, veiculo = veiculo)
+            nova_reserva = Reserva.objects.create(cliente = cliente, veiculo = veiculo,data = dia, hora = hora)
             nova_reserva.save()
             return JsonResponse({'mensagem': 'Reserva feita com sucesso'})
         else:
