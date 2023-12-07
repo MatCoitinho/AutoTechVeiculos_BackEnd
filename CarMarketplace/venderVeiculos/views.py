@@ -17,7 +17,7 @@ class VendaViewSet(viewsets.ModelViewSet):
     queryset = Venda.objects.all()
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['veiculo__modelo__model','cpf_comprador','nome_comprador']
+    filterset_fields = ['modelo','cpf_comprador','nome_comprador']
 
 
 @csrf_exempt

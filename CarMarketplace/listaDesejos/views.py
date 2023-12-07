@@ -8,23 +8,31 @@ from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import Cliente
+from django_filters.rest_framework import DjangoFilterBackend
+from django.contrib.auth.models import User
+
+
 
 class DesejoViewSet(viewsets.ModelViewSet):
     serializer_class = DesejoSerializer
     queryset = Desejo.objects.all()
     permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['dono__cpf']
+
 
 @csrf_exempt
 @api_view(['POST'])
 def adicionarDesejo(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
-        cpf = data.get('cpf')
+        email = data.get('email')
         modelo = data.get('modelo')
         marca = data.get('marca')
         ano = data.get('ano')
 
-        cliente = Cliente.objects.get(cpf = cpf)
+        user = User.objects.get(username = email)
+        cliente = Cliente.objects.get(user = user)
         if cliente and modelo and marca and ano:
             novo_desejo = Desejo.objects.create(dono = cliente, modelo = modelo, marca = marca, ano = ano)
             novo_desejo.save()
