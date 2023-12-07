@@ -8,5 +8,5 @@ router.register(r'Venda', VendaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('criarVenda',criar_venda,name='Vender')
+    path('criarVenda/',criar_venda,name='Vender')
 ]
