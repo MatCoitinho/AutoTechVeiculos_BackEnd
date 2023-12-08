@@ -17,13 +17,12 @@ from django.contrib.auth.hashers import make_password
 def change_password(request):
     if request.method == 'PATCH':
         data = json.loads(request.body.decode('utf-8'))
-        cpf = data.get('cpf')
+        email = data.get('email')
         senha_atual = data.get('senha_atual')
         nova_senha = data.get('nova_senha')
 
-        if cpf and senha_atual and nova_senha:
-            cliente = Cliente.objects.get(cpf=cpf)
-            user = cliente.user
+        if email and senha_atual and nova_senha:
+            user = User.objects.get(username = email)
             if user.password == senha_atual:
                 user.password = make_password(nova_senha)
                 user.save()
