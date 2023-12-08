@@ -18,7 +18,7 @@ class DesejoViewSet(viewsets.ModelViewSet):
     queryset = Desejo.objects.all()
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['dono__cpf']
+    filterset_fields = ['dono__user__username']
 
 
 @csrf_exempt

@@ -2,6 +2,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from apscheduler.triggers.cron import CronTrigger
 from django_apscheduler.jobstores import DjangoJobStore, register_events, register_job
 from .models import Anuncio
+from django.utils import timezone
 
 scheduler = BackgroundScheduler()
 scheduler.add_jobstore(DjangoJobStore(), "default")
@@ -18,5 +19,16 @@ def decrementar_pontos():
             anuncio.pontos -= 1
             anuncio.save()
 
+@register_job(scheduler, CronTrigger(hour='01', minute='00'), replace_existing=True)
+def remover_destaque_expirado():
+    agora = timezone.now()
+    veiculos_expirados = Anuncio.objects.filter(destaque=True, data_expiracao_destaque__lte=agora)
+
+    for veiculo in veiculos_expirados:
+        veiculo.destaque = False
+        veiculo.data_expiracao_destaque = None
+        veiculo.save()
+
 register_events(scheduler)
 scheduler.start()
+

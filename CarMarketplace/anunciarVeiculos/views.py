@@ -11,6 +11,7 @@ from login.models import Cliente
 from django_filters.rest_framework import DjangoFilterBackend
 from listaDesejos.models import Desejo
 from django.core.mail import send_mail
+from datetime import datetime, timedelta
 
 class ModeloViewSet(viewsets.ModelViewSet):
     permission_classes = [AllowAny]
@@ -31,7 +32,7 @@ class AnuncioViewSet(viewsets.ModelViewSet):
     queryset = Anuncio.objects.all().order_by('-destaque','-pontos')
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['veiculo__modelo__model','veiculo__modelo__marca','destaque','servico']
+    filterset_fields = ['veiculo__modelo__model','veiculo__modelo__marca','destaque','servico','veiculo__dono__user__username']
 
 @csrf_exempt
 def criarVeiculo(request):
@@ -91,8 +92,9 @@ def criarAnuncio(request):
                         'Um veículo que está na sua lista de desejos está disponível no nosso site, entre agora em www.autotech.com para ver',
                         'autotechveiculos3@gmail.com',
                         recipient_list=[email])
-                    
-                novo_anuncio = Anuncio.objects.create(pontos = pontos, img1 = img1, img2 = img2, descricao = descricao, veiculo = veiculo_anuncio, destaque = destaque, preco = preco, servico = servico)
+                
+                tempo_destaque= datetime.now() + timedelta(weeks=2)
+                novo_anuncio = Anuncio.objects.create(pontos = pontos, img1 = img1, img2 = img2, descricao = descricao, veiculo = veiculo_anuncio, destaque = destaque, preco = preco, servico = servico, data_expiracao_destaque=tempo_destaque)
                 novo_anuncio.save()
                 print("Anuncio criado com sucesso")
                 return JsonResponse({'mensagem': 'Anuncio criado com sucesso'}, status=200)
@@ -103,4 +105,3 @@ def criarAnuncio(request):
     else:
         print("Metodo errado")
         return JsonResponse({'erro':'Metodo nao permitido.'})
-    

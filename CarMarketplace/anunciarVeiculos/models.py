@@ -65,6 +65,7 @@ class Anuncio(models.Model):
     destaque = models.BooleanField(verbose_name="Destaque",default=False)
     preco = models.IntegerField(verbose_name = "Preco Do Veiculo",default=0)
     servico = models.BooleanField(verbose_name="Serviço", default=False)
+    data_expiracao_destaque = models.DateTimeField(verbose_name='Data de expiração do destaque', null=True)
     
     def __str__(self):
         return self.veiculo.placa
