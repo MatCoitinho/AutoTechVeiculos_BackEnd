@@ -162,6 +162,24 @@ def retrieveUserCliente(request):
         return Response({'erro': 'Metodo inválido'})
     
 @csrf_exempt
+@api_view(['POST'])
+def retrieveImagens(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        email = data.get('email')
+        if email:
+            user = User.objects.get(username=email)
+            cliente = Cliente.objects.get(user = user)
+            return Response({
+                    'imgPerfil': cliente.imgPerfil,
+                    'imgBanner': cliente.imgBanner,
+                })
+        else:
+            return Response({'erro': 'Não foi passado um email valido'})
+    else:
+        return Response({'erro': 'Metodo inválido'})
+    
+@csrf_exempt
 def Atualizar(request):
     if request.method == 'PATCH':
         data = json.loads(request.body.decode('utf-8'))
