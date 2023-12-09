@@ -105,3 +105,22 @@ def criarAnuncio(request):
     else:
         print("Metodo errado")
         return JsonResponse({'erro':'Metodo nao permitido.'})
+    
+@csrf_exempt
+def destaquePago(request):
+    if request.method == 'PATCH':
+        data = json.loads(request.body.decode('utf-8'))
+        id = data.get('id')
+        valor = data.get('valor')
+
+        if valor and id:
+            anuncio = Anuncio.objects.get(id = id)
+            valor = valor % 100
+            tempo_destaque = datetime.now() + timedelta(weeks=valor)
+            anuncio.data_expiracao_destaque = tempo_destaque
+            anuncio.save()
+            return JsonResponse({'mensagem': 'Destaque adicionado com sucesso'}, status=200)
+        else:
+            return JsonResponse({'erro':'Campos Obrigatorios ausentes'})
+    else:
+        return JsonResponse({'erro':'Metodo nao permitido.'})     

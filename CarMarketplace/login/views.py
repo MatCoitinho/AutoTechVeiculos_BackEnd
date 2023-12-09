@@ -195,3 +195,21 @@ def Atualizar(request):
             return JsonResponse({'erro': 'Campos obrigatorios ausentes.'})
     else:
         return JsonResponse({'erro': 'Metodo nao permitido.'})
+    
+@csrf_exempt
+def alterarImagem(request):
+    if request.method == 'PATCH':
+        data = json.loads(request.body.decode('utf-8'))
+        imgPerfil = data.get('imgPerfil')
+        imgBanner = data.get('imgBanner')
+        email = data.get('email')
+
+        user = User.objects.get(username = email)
+        cliente = Cliente.objects.get(user = user)
+        if imgPerfil:   
+            cliente.imgPerfil = imgPerfil
+        else:
+            cliente.imgBanner = imgBanner
+        return JsonResponse({'mensagem': 'Imagem atualizada com sucesso'}, status=200)
+    else:
+        return JsonResponse({'erro': 'Metodo nao permitido.'})

@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ModeloViewSet, VeiculoViewSet, AnuncioViewSet, criarVeiculo, criarAnuncio
+from .views import ModeloViewSet, VeiculoViewSet, AnuncioViewSet, criarVeiculo, criarAnuncio, destaquePago
 from django.contrib import admin
 
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('criarVeiculo/',criarVeiculo,name='criar_veiculo'),
     path('criarAnuncio/',criarAnuncio,name='criar_anuncio'),
+    path('destaquePago/',destaquePago,name='destaquePago'),
 ]

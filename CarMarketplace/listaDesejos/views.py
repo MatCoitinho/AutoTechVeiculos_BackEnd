@@ -11,8 +11,6 @@ from .models import Cliente
 from django_filters.rest_framework import DjangoFilterBackend
 from django.contrib.auth.models import User
 
-
-
 class DesejoViewSet(viewsets.ModelViewSet):
     serializer_class = DesejoSerializer
     queryset = Desejo.objects.all()

@@ -12,6 +12,8 @@ class Cliente(models.Model):
     telefone = models.CharField(validators=[telefone_regex], max_length=11, verbose_name="Telefone")
     endereco = models.CharField(max_length=300)
     user = models.ForeignKey(User,on_delete=models.CASCADE, unique=True,null=True)
+    imgPerfil = models.CharField(max_length=500, null=True)
+    imgBanner = models.CharField(max_length=500,null=True)
 
     def __str__(self):
         return self.cpf

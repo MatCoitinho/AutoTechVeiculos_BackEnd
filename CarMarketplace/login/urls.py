@@ -1,9 +1,8 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import ClienteViewSet, Cadastrar, Logar, retrieveUserCliente, Atualizar, change_password
+from .views import ClienteViewSet, Cadastrar, Logar, retrieveUserCliente, Atualizar, change_password,alterarImagem
 
 from django.urls import path, include
-
 
 router = DefaultRouter()
 
@@ -15,5 +14,6 @@ urlpatterns = [
     path('logar/',Logar,name='Logar'),
     path('retrieve/',retrieveUserCliente, name='Retrieve'),
     path('atualizar/',Atualizar,name='Atualizar'),
-    path('mudarSenha/',change_password,name='MudarSenha')
+    path('mudarSenha/',change_password,name='MudarSenha'),
+    path('mudarImagem/',alterarImagem,name='mudarImagem')
 ]
