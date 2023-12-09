@@ -205,11 +205,9 @@ def alterarImagem(request):
         email = data.get('email')
 
         user = User.objects.get(username = email)
-        cliente = Cliente.objects.get(user = user)
-        if imgPerfil:   
-            cliente.imgPerfil = imgPerfil
-        else:
-            cliente.imgBanner = imgBanner
+        cliente = Cliente.objects.get(user = user)  
+        cliente.imgPerfil = imgPerfil
+        cliente.imgBanner = imgBanner
         return JsonResponse({'mensagem': 'Imagem atualizada com sucesso'}, status=200)
     else:
         return JsonResponse({'erro': 'Metodo nao permitido.'})
