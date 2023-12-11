@@ -14,7 +14,6 @@ from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.hashers import check_password
 
-
 @csrf_exempt
 def change_password(request):
     if request.method == 'PATCH':
@@ -37,17 +36,12 @@ def change_password(request):
     else:
         return JsonResponse({'erro': 'Metodo nao permitido'})
 
-
-    
-
 class ClienteViewSet(viewsets.ModelViewSet):
     serializer_class = ClienteSerializer
     queryset = Cliente.objects.all()
     permission_classes = [AllowAny]
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ['cpf','user__first_name']
-
-
 
 @csrf_exempt
 def Cadastrar(request):
@@ -78,8 +72,6 @@ def Cadastrar(request):
     else:
         return JsonResponse({'erro': 'Metodo nao permitido.'})
     
-
-
 @csrf_exempt
 @api_view(['POST'])
 def Logar(request):
@@ -88,7 +80,6 @@ def Logar(request):
         email = data.get('email')
         password = data.get('password')
         user = authenticate(request, username=email, password = password)
-
         if user:
             refresh = RefreshToken.for_user(user)
             if user.is_superuser:
@@ -123,7 +114,6 @@ def Logar(request):
         
     else:
         return JsonResponse({'erro':'Metodo nao permitido'})
-
 
 @csrf_exempt
 @api_view(['POST'])

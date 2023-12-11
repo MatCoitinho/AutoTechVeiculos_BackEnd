@@ -118,6 +118,7 @@ def destaquePago(request):
             valor = valor % 100
             tempo_destaque = datetime.now() + timedelta(weeks=valor)
             anuncio.data_expiracao_destaque = tempo_destaque
+            anuncio.destaque = True
             anuncio.save()
             return JsonResponse({'mensagem': 'Destaque adicionado com sucesso'}, status=200)
         else:
