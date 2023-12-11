@@ -12,6 +12,8 @@ from django.contrib.auth import authenticate
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import check_password
+
 
 @csrf_exempt
 def change_password(request):
@@ -23,8 +25,9 @@ def change_password(request):
 
         if email and senha_atual and nova_senha:
             user = User.objects.get(username = email)
-            if user.password == senha_atual:
+            if check_password(senha_atual,user.password):
                 user.password = make_password(nova_senha)
+                print(user.password)
                 user.save()
                 return JsonResponse({'mensagem': 'Senha alterada com sucesso'},status = 200)
             else:
@@ -168,6 +171,7 @@ def retrieveImagens(request):
         data = json.loads(request.body.decode('utf-8'))
         email = data.get('email')
         if email:
+            print(email)
             user = User.objects.get(username=email)
             cliente = Cliente.objects.get(user = user)
             return Response({
